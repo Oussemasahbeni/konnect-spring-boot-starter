@@ -1,7 +1,7 @@
 package com.oussemasahbeni.konnect.client;
 
-import com.oussemasahbeni.konnect.config.KonnectConfiguration;
-import com.oussemasahbeni.konnect.config.KonnectProperties;
+import com.oussemasahbeni.konnect.autoconfigure.KonnectAutoConfiguration;
+import com.oussemasahbeni.konnect.autoconfigure.KonnectProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -12,21 +12,27 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
 class KonnectClientImplTest {
 
     private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
             .withConfiguration(AutoConfigurations.of(
-                    KonnectConfiguration.class,
+                    KonnectAutoConfiguration.class,
                     RestClientAutoConfiguration.class,
-                    JacksonAutoConfiguration.class));
+                    JacksonAutoConfiguration.class))
+            .withPropertyValues(
+                    "konnect.key=test-api-key-from-properties",
+                    "konnect.receiver-wallet-id=test-wallet-id-from-properties"
+            );
 
     @Test
     void shouldContainKonnectClientBean() {
-        contextRunner.run(context -> {
-            assertTrue(context.containsBean("konnectClient"));
-            assertInstanceOf(KonnectClientImpl.class, context.getBean(KonnectClient.class));
-            assertTrue(context.containsBean("konnectRestClient"));
-        });
+        contextRunner
+                .run(context -> {
+                    assertTrue(context.containsBean("konnectClient"));
+                    assertInstanceOf(KonnectClientImpl.class, context.getBean(KonnectClient.class));
+                    assertTrue(context.containsBean("konnectRestClient"));
+                });
     }
 
     @Test
@@ -41,19 +47,22 @@ class KonnectClientImplTest {
     @Test
     void shouldSetCustomBaseUrl() {
         contextRunner
-                .withPropertyValues("konnect.baseUrl=https://api.konnect.network/api/v2/")
+                .withPropertyValues("konnect.base-url=https://api.konnect.network/api/v2/")
                 .run(context -> {
                     assertThat(context).hasSingleBean(KonnectProperties.class);
                     assertThat(context.getBean(KonnectProperties.class).baseUrl()).isEqualTo("https://api.konnect.network/api/v2/");
                 });
     }
 
-
     @Test
-    void initiatePayment() {
-    }
-
-    @Test
-    void getPaymentDetails() {
+    void shouldFailWithoutRequiredProperties() {
+        contextRunner
+                .withPropertyValues(
+                        "konnect.key=",
+                        "konnect.receiver-wallet-id="
+                )
+                .run(context -> {
+                    assertThat(context).hasFailed();
+                });
     }
 }

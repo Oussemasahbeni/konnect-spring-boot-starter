@@ -9,13 +9,13 @@ import com.oussemasahbeni.konnect.model.InitKonnectPaymentResponse;
 import com.oussemasahbeni.konnect.model.PaymentResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestClient;
 
 import java.io.IOException;
+
 
 public class KonnectClientImpl implements KonnectClient {
 
@@ -54,7 +54,6 @@ public class KonnectClientImpl implements KonnectClient {
      */
     @Override
     public InitKonnectPaymentResponse initiatePayment(InitKonnectPaymentRequest paymentRequest) {
-        log.info("Initiating payment with Konnect API: {}", paymentRequest);
         ResponseEntity<InitKonnectPaymentResponse> responseEntity = restClient.post()
                 .uri("/payments/init-payment")
                 .body(paymentRequest)
@@ -66,13 +65,15 @@ public class KonnectClientImpl implements KonnectClient {
 
 
     /**
-     * Get payment details with caching (5 minute TTL)
-     * Cached to reduce API calls and improve performance
+     * Get payment details for a given payment reference.
+     * This method fetches the payment details from the Konnect API using the provided payment reference.
+     *
+     * @param paymentRef The reference of the payment to retrieve details for.
+     * @return PaymentResponse containing the details of the payment.
+     * @throws KonnectApiException if the API call fails or returns an error status.
      */
-    @Cacheable(value = "paymentDetails", key = "#paymentRef")
     @Override
     public PaymentResponse getPaymentDetails(String paymentRef) {
-        log.info("Fetching payment details for reference: {}", paymentRef);
         ResponseEntity<PaymentResponse> responseEntity = restClient.get()
                 .uri("/payments/" + paymentRef)
                 .retrieve()

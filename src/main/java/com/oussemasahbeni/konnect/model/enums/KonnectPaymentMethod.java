@@ -1,14 +1,15 @@
-package com.oussemasahbeni.konnect.enums;
+package com.oussemasahbeni.konnect.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum PaymentMethod {
+public enum KonnectPaymentMethod {
     WALLET("wallet"),
     BANK_CARD("bank_card"),
     E_DINAR("e-DINAR"),
     KONNECT("konnect");
     private final String value;
-    PaymentMethod(String value) {
+
+    KonnectPaymentMethod(String value) {
         this.value = value;
     }
 

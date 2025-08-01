@@ -1,15 +1,15 @@
-package com.oussemasahbeni.konnect.enums;
+package com.oussemasahbeni.konnect.model.enums;
 
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum PaymentType {
+public enum KonnectPaymentType {
     IMMEDIATE("immediate"),
     PARTIAL("partial");
 
     private final String value;
 
-    PaymentType(String value) {
+    KonnectPaymentType(String value) {
         this.value = value;
     }
 

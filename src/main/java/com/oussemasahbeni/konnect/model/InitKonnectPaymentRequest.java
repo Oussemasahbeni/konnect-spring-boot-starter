@@ -1,10 +1,11 @@
 package com.oussemasahbeni.konnect.model;
 
 
-import com.oussemasahbeni.konnect.enums.PaymentMethod;
-import com.oussemasahbeni.konnect.enums.PaymentType;
-import com.oussemasahbeni.konnect.enums.Theme;
-import com.oussemasahbeni.konnect.enums.Token;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.oussemasahbeni.konnect.model.enums.KonnectPaymentMethod;
+import com.oussemasahbeni.konnect.model.enums.KonnectPaymentType;
+import com.oussemasahbeni.konnect.model.enums.KonnectTheme;
+import com.oussemasahbeni.konnect.model.enums.KonnectToken;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  * This class is used to create a payment request with all the necessary details
  * for Konnect to process a transaction.  It includes a fluid builder for easy object creation.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class InitKonnectPaymentRequest {
     /**
      * Konnect wallet ID of the payment receiver.
@@ -23,7 +25,7 @@ public class InitKonnectPaymentRequest {
     /**
      * The currency of the payment.
      */
-    private Token token;
+    private KonnectToken konnectToken;
 
     /**
      * The payment amount in the smallest currency unit (e.g., Millimes for TND).
@@ -33,7 +35,7 @@ public class InitKonnectPaymentRequest {
     /**
      * The type of payment, e.g., immediate or partial.
      */
-    private PaymentType type;
+    private KonnectPaymentType type;
 
     /**
      * A description of the payment that will be visible to the payer.
@@ -43,22 +45,22 @@ public class InitKonnectPaymentRequest {
     /**
      * A list of payment methods accepted for this transaction.
      */
-    private List<PaymentMethod> acceptedPaymentMethods;
+    private List<KonnectPaymentMethod> acceptedKonnectPaymentMethods;
 
     /**
      * The expiration time for the payment link, in minutes.
      */
-    private int lifespan;
+    private Integer lifespan;
 
     /**
      * If true, the payer must fill out a checkout form before payment.
      */
-    private boolean checkoutForm;
+    private Boolean checkoutForm;
 
     /**
      * If true, Konnect's payment fees are added to the total amount paid by the client. Defaults to false.
      */
-    private boolean addPaymentFeesToAmount;
+    private Boolean addPaymentFeesToAmount;
 
     /**
      * The first name of the payer.
@@ -93,7 +95,7 @@ public class InitKonnectPaymentRequest {
     /**
      * The visual theme for the payment gateway page, e.g., light or dark.
      */
-    private Theme theme;
+    private KonnectTheme konnectTheme;
 
     // Getters and Setters
     public String getReceiverWalletId() {
@@ -104,12 +106,12 @@ public class InitKonnectPaymentRequest {
         this.receiverWalletId = receiverWalletId;
     }
 
-    public Token getToken() {
-        return token;
+    public KonnectToken getToken() {
+        return konnectToken;
     }
 
-    public void setToken(Token token) {
-        this.token = token;
+    public void setToken(KonnectToken konnectToken) {
+        this.konnectToken = konnectToken;
     }
 
     public BigDecimal getAmount() {
@@ -120,11 +122,11 @@ public class InitKonnectPaymentRequest {
         this.amount = amount;
     }
 
-    public PaymentType getType() {
+    public KonnectPaymentType getType() {
         return type;
     }
 
-    public void setType(PaymentType type) {
+    public void setType(KonnectPaymentType type) {
         this.type = type;
     }
 
@@ -136,35 +138,35 @@ public class InitKonnectPaymentRequest {
         this.description = description;
     }
 
-    public List<PaymentMethod> getAcceptedPaymentMethods() {
-        return acceptedPaymentMethods;
+    public List<KonnectPaymentMethod> getAcceptedPaymentMethods() {
+        return acceptedKonnectPaymentMethods;
     }
 
-    public void setAcceptedPaymentMethods(List<PaymentMethod> acceptedPaymentMethods) {
-        this.acceptedPaymentMethods = acceptedPaymentMethods;
+    public void setAcceptedPaymentMethods(List<KonnectPaymentMethod> acceptedKonnectPaymentMethods) {
+        this.acceptedKonnectPaymentMethods = acceptedKonnectPaymentMethods;
     }
 
-    public int getLifespan() {
+    public Integer getLifespan() {
         return lifespan;
     }
 
-    public void setLifespan(int lifespan) {
+    public void setLifespan(Integer lifespan) {
         this.lifespan = lifespan;
     }
 
-    public boolean isCheckoutForm() {
+    public Boolean isCheckoutForm() {
         return checkoutForm;
     }
 
-    public void setCheckoutForm(boolean checkoutForm) {
+    public void setCheckoutForm(Boolean checkoutForm) {
         this.checkoutForm = checkoutForm;
     }
 
-    public boolean isAddPaymentFeesToAmount() {
+    public Boolean isAddPaymentFeesToAmount() {
         return addPaymentFeesToAmount;
     }
 
-    public void setAddPaymentFeesToAmount(boolean addPaymentFeesToAmount) {
+    public void setAddPaymentFeesToAmount(Boolean addPaymentFeesToAmount) {
         this.addPaymentFeesToAmount = addPaymentFeesToAmount;
     }
 
@@ -216,12 +218,12 @@ public class InitKonnectPaymentRequest {
         this.webhook = webhook;
     }
 
-    public Theme getTheme() {
-        return theme;
+    public KonnectTheme getTheme() {
+        return konnectTheme;
     }
 
-    public void setTheme(Theme theme) {
-        this.theme = theme;
+    public void setTheme(KonnectTheme konnectTheme) {
+        this.konnectTheme = konnectTheme;
     }
 
     /**
@@ -229,29 +231,29 @@ public class InitKonnectPaymentRequest {
      */
     public static class Builder {
         private String receiverWalletId;
-        private Token token;
+        private KonnectToken konnectToken;
         private BigDecimal amount;
-        private PaymentType type;
+        private KonnectPaymentType type;
         private String description;
-        private List<PaymentMethod> acceptedPaymentMethods;
-        private int lifespan;
-        private boolean checkoutForm;
-        private boolean addPaymentFeesToAmount;
+        private List<KonnectPaymentMethod> acceptedKonnectPaymentMethods;
+        private Integer lifespan;
+        private Boolean checkoutForm;
+        private Boolean addPaymentFeesToAmount;
         private String firstName;
         private String lastName;
         private String phoneNumber;
         private String email;
         private String orderId;
         private String webhook;
-        private Theme theme;
+        private KonnectTheme konnectTheme;
 
         public Builder receiverWalletId(String receiverWalletId) {
             this.receiverWalletId = receiverWalletId;
             return this;
         }
 
-        public Builder token(Token token) {
-            this.token = token;
+        public Builder token(KonnectToken konnectToken) {
+            this.konnectToken = konnectToken;
             return this;
         }
 
@@ -260,7 +262,7 @@ public class InitKonnectPaymentRequest {
             return this;
         }
 
-        public Builder type(PaymentType type) {
+        public Builder type(KonnectPaymentType type) {
             this.type = type;
             return this;
         }
@@ -270,22 +272,22 @@ public class InitKonnectPaymentRequest {
             return this;
         }
 
-        public Builder acceptedPaymentMethods(List<PaymentMethod> acceptedPaymentMethods) {
-            this.acceptedPaymentMethods = acceptedPaymentMethods;
+        public Builder acceptedPaymentMethods(List<KonnectPaymentMethod> acceptedKonnectPaymentMethods) {
+            this.acceptedKonnectPaymentMethods = acceptedKonnectPaymentMethods;
             return this;
         }
 
-        public Builder lifespan(int lifespan) {
+        public Builder lifespan(Integer lifespan) {
             this.lifespan = lifespan;
             return this;
         }
 
-        public Builder checkoutForm(boolean checkoutForm) {
+        public Builder checkoutForm(Boolean checkoutForm) {
             this.checkoutForm = checkoutForm;
             return this;
         }
 
-        public Builder addPaymentFeesToAmount(boolean addPaymentFeesToAmount) {
+        public Builder addPaymentFeesToAmount(Boolean addPaymentFeesToAmount) {
             this.addPaymentFeesToAmount = addPaymentFeesToAmount;
             return this;
         }
@@ -320,19 +322,19 @@ public class InitKonnectPaymentRequest {
             return this;
         }
 
-        public Builder theme(Theme theme) {
-            this.theme = theme;
+        public Builder theme(KonnectTheme konnectTheme) {
+            this.konnectTheme = konnectTheme;
             return this;
         }
 
         public InitKonnectPaymentRequest build() {
             InitKonnectPaymentRequest request = new InitKonnectPaymentRequest();
             request.setReceiverWalletId(this.receiverWalletId);
-            request.setToken(this.token);
+            request.setToken(this.konnectToken);
             request.setAmount(this.amount);
             request.setType(this.type);
             request.setDescription(this.description);
-            request.setAcceptedPaymentMethods(this.acceptedPaymentMethods);
+            request.setAcceptedPaymentMethods(this.acceptedKonnectPaymentMethods);
             request.setLifespan(this.lifespan);
             request.setCheckoutForm(this.checkoutForm);
             request.setAddPaymentFeesToAmount(this.addPaymentFeesToAmount);
@@ -342,7 +344,7 @@ public class InitKonnectPaymentRequest {
             request.setEmail(this.email);
             request.setOrderId(this.orderId);
             request.setWebhook(this.webhook);
-            request.setTheme(this.theme);
+            request.setTheme(this.konnectTheme);
             return request;
         }
     }

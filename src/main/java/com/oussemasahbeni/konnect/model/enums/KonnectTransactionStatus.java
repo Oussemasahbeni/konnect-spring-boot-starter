@@ -1,18 +1,17 @@
-package com.oussemasahbeni.konnect.enums;
+package com.oussemasahbeni.konnect.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum Theme {
+public enum KonnectTransactionStatus {
 
-    LIGHT("light"),
-    DARK("dark");
+    SUCCESS("success"),
+    FAILED_PAYMENT("failed_payment");
 
     private final String value;
 
-    Theme(String value) {
+    KonnectTransactionStatus(String value) {
         this.value = value;
     }
-
 
     @JsonValue
     public String getValue() {

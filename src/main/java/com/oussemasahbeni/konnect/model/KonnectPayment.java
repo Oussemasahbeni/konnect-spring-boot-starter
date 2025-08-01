@@ -2,7 +2,7 @@ package com.oussemasahbeni.konnect.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.oussemasahbeni.konnect.enums.*;
+import com.oussemasahbeni.konnect.model.enums.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -13,12 +13,12 @@ public record KonnectPayment(
         List<Transaction> transactions,
         int failedTransactions,
         int successfulTransactions,
-        List<PaymentMethod> acceptedPaymentMethods,
+        List<KonnectPaymentMethod> acceptedKonnectPaymentMethods,
         Long amount,
-        Token token,
+        KonnectToken konnectToken,
         String orderId,
-        PaymentType type,
-        PaymentStatus status,
+        KonnectPaymentType type,
+        KonnectPaymentStatus status,
         Long convertedAmount,
         BigDecimal exchangeRate,
         PaymentDetails paymentDetails,
@@ -30,7 +30,7 @@ public record KonnectPayment(
     public record Transaction(
             String type,
             String method,
-            TransactionStatus status,
+            KonnectTransactionStatus status,
             String token,
             Long amount,
             @JsonProperty("ext_payment_ref") String extPaymentRef,

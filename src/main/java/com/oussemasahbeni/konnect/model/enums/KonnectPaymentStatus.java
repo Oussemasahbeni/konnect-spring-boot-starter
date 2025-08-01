@@ -1,15 +1,15 @@
-package com.oussemasahbeni.konnect.enums;
+package com.oussemasahbeni.konnect.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum PaymentStatus {
+public enum KonnectPaymentStatus {
 
     COMPLETED("completed"),
     PENDING("pending");
 
     private final String value;
 
-    PaymentStatus(String value) {
+    KonnectPaymentStatus(String value) {
         this.value = value;
     }
 
