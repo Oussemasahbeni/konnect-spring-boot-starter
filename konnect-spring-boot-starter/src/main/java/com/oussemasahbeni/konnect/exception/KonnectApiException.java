@@ -6,6 +6,7 @@ public class KonnectApiException extends RuntimeException {
     private final int statusCode;
     private final KonnectErrorResponse errorResponse;
 
+
     public KonnectApiException(String message, int statusCode) {
         super(message);
         this.statusCode = statusCode;

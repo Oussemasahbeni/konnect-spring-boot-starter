@@ -3,10 +3,12 @@ package com.oussemasahbeni.konnect.core;
 
 import com.oussemasahbeni.konnect.autoconfigure.KonnectProperties;
 import com.oussemasahbeni.konnect.client.KonnectClient;
+import com.oussemasahbeni.konnect.exception.InvalidPaymentReferenceException;
 import com.oussemasahbeni.konnect.exception.KonnectApiException;
 import com.oussemasahbeni.konnect.model.InitKonnectPaymentRequest;
 import com.oussemasahbeni.konnect.model.InitKonnectPaymentResponse;
 import com.oussemasahbeni.konnect.model.PaymentResponse;
+import com.oussemasahbeni.konnect.utils.PaymentRefValidator;
 
 import java.math.BigDecimal;
 import java.util.function.Consumer;
@@ -47,6 +49,10 @@ public class KonnectTemplate {
      * @throws KonnectApiException if the API call fails or returns an error status.
      */
     public PaymentResponse getPaymentDetails(String paymentRef) {
+
+        if (!PaymentRefValidator.isValid(paymentRef)) {
+            throw new InvalidPaymentReferenceException("Invalid payment reference format", paymentRef);
+        }
         return konnectClient.getPaymentDetails(paymentRef);
     }
 
