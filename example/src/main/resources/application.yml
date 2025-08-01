@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: konnect-starter-example
+
+konnect:
+  base-url: https://api.sandbox.konnect.network/api/v2/
+  key: 6879130a6d5c4a3b95da6939:0959PdpE72bSSShRobxaAb
+  receiver-wallet-id: "6879130a6d5c4a3b95da6940"
+
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /docs
+    operationsSorter: method
+    display-request-duration: true
+  default-produces-media-type: application/json

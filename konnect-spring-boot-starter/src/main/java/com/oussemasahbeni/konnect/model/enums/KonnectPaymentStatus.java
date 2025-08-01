@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum KonnectPaymentStatus {
 
     COMPLETED("completed"),
-    PENDING("pending");
+    PENDING("pending"),
+    EXPIRED("expired");
 
     private final String value;
 

@@ -19,7 +19,6 @@ A Spring Boot starter to easily integrate Konnect payment services into your Spr
 Add the dependency to your `pom.xml`:
 
 ```xml
-
 <dependency>
     <groupId>com.oussemasahbeni</groupId>
     <artifactId>konnect-spring-boot-starter</artifactId>
