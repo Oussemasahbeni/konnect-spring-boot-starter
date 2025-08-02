@@ -8,7 +8,6 @@ import com.oussemasahbeni.konnect.core.KonnectWebhookHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -59,7 +58,7 @@ public class KonnectAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnBean(KonnectTemplate.class)
+    @ConditionalOnMissingBean
     public KonnectWebhookHandler konnectWebhookHandler(KonnectTemplate konnectTemplate) {
         return new KonnectWebhookHandler(konnectTemplate);
     }
