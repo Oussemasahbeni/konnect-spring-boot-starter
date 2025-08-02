@@ -1,11 +1,90 @@
 package com.oussemasahbeni.konnect.client;
 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oussemasahbeni.konnect.exception.KonnectApiException;
+import com.oussemasahbeni.konnect.exception.KonnectErrorResponse;
 import com.oussemasahbeni.konnect.model.InitKonnectPaymentRequest;
 import com.oussemasahbeni.konnect.model.InitKonnectPaymentResponse;
 import com.oussemasahbeni.konnect.model.PaymentResponse;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.client.RestClient;
 
-public interface KonnectClient {
-    InitKonnectPaymentResponse initiatePayment(InitKonnectPaymentRequest paymentRequest);
+import java.io.IOException;
 
-    PaymentResponse getPaymentDetails(String paymentRef);
+
+public class KonnectClient {
+
+
+    private final RestClient restClient;
+
+
+    public KonnectClient(RestClient konnectRestClient, ObjectMapper objectMapper) {
+        this.restClient = konnectRestClient.mutate()
+                .defaultStatusHandler(HttpStatusCode::isError, (request, response) -> handleApiError(objectMapper, response))
+                .build();
+    }
+
+
+    /**
+     * Calls the Konnect API to initiate a new payment.
+     *
+     * @param paymentRequest The payment request object.
+     * @return The response from the Konnect API, containing the payment URL and reference.
+     */
+    public InitKonnectPaymentResponse initiatePayment(InitKonnectPaymentRequest paymentRequest) {
+        return restClient.post()
+                .uri("/payments/init-payment")
+                .body(paymentRequest)
+                .retrieve()
+                .body(InitKonnectPaymentResponse.class);
+
+    }
+
+
+    /**
+     * Get payment details for a given payment reference.
+     * This method fetches the payment details from the Konnect API using the provided payment reference.
+     *
+     * @param paymentRef The reference of the payment to retrieve details for.
+     * @return PaymentResponse containing the details of the payment.
+     * @throws KonnectApiException if the API call fails or returns an error status.
+     */
+    public PaymentResponse getPaymentDetails(String paymentRef) {
+        return restClient.get()
+                .uri("/payments/" + paymentRef)
+                .retrieve()
+                .body(PaymentResponse.class);
+
+
+    }
+
+
+    /**
+     * Handles API errors by reading the response body and throwing a KonnectApiException.
+     *
+     * @param objectMapper The ObjectMapper to parse the error response.
+     * @param response     The ClientHttpResponse containing the error details.
+     * @throws IOException if there is an error reading the response body.
+     */
+    private static void handleApiError(ObjectMapper objectMapper, ClientHttpResponse response) throws IOException {
+        try {
+            byte[] bodyBytes = StreamUtils.copyToByteArray(response.getBody());
+            if (bodyBytes.length == 0) {
+                String msg = "Konnect API Error: No response body (status: " + response.getStatusCode() + ")";
+                throw new KonnectApiException(msg, response.getStatusCode().value());
+            }
+
+            KonnectErrorResponse errorBody = objectMapper.readValue(bodyBytes, KonnectErrorResponse.class);
+            String message = "Konnect API Error: " + errorBody.errors().getFirst().message();
+            throw new KonnectApiException(message, response.getStatusCode().value(), errorBody);
+        } catch (IOException e) {
+            String msg = "Konnect API Error: Unable to parse error response (status: " + response.getStatusCode() + ")";
+            throw new KonnectApiException(msg, response.getStatusCode().value(), null, e);
+        }
+    }
+
+
 }

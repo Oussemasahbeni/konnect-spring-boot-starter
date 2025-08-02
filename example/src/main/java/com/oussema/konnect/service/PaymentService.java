@@ -18,18 +18,13 @@ public class PaymentService {
 
 
     public InitKonnectPaymentResponse initPayment(InitPaymentDto initPaymentDto) {
-
-//        InitKonnectPaymentRequest request = new InitKonnectPaymentRequest.Builder()
-//                .amount(initPaymentDto.amount())
-//                .build();
-
         return konnectTemplate.initiatePayment(initPaymentDto.amount());
     }
 
     public InitKonnectPaymentResponse initPaymentWithLightTheme(InitPaymentDto initPaymentDto) {
         return konnectTemplate.initiatePayment(initPaymentDto.amount(), builder ->
                 builder.theme(KonnectTheme.DARK)
-                        .description("Special light theme payment")
+                        .description("Special dark theme payment")
         );
     }
 

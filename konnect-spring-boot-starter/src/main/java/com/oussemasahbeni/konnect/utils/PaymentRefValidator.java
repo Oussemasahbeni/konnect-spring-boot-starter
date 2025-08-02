@@ -13,7 +13,7 @@ public class PaymentRefValidator {
      * @return true if the payment reference is valid, false otherwise
      */
     public static boolean isValid(String paymentRef) {
-        if (paymentRef == null || paymentRef.trim().isEmpty()) {
+        if (paymentRef == null || paymentRef.trim().isBlank()) {
             return false;
         }
 

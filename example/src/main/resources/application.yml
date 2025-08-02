@@ -3,9 +3,10 @@ spring:
     name: konnect-starter-example
 
 konnect:
-  base-url: https://api.sandbox.konnect.network/api/v2/
-  key: ${KONNECT_KEY}
-  receiver-wallet-id: ${KONNECT_RECEIVER_WALLET_ID}
+  api:
+    base-url: https://api.sandbox.konnect.network/api/v2/
+    key: ${KONNECT_KEY}
+    receiver-wallet-id: ${KONNECT_RECEIVER_WALLET_ID}
 
 
 

@@ -17,7 +17,7 @@ import java.util.List;
  * Configuration properties for Konnect payment defaults
  * Allows externalization of payment configuration with user override capabilities
  */
-@ConfigurationProperties(prefix = "konnect")
+@ConfigurationProperties(prefix = "konnect.api")
 @Validated
 public record KonnectProperties(
         @NotBlank(message = "Konnect API base URL cannot be blank")
@@ -53,6 +53,5 @@ public record KonnectProperties(
             Boolean addPaymentFeesToAmount
     ) {
     }
-
-
+    
 }
