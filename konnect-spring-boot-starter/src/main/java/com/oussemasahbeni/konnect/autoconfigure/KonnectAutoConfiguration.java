@@ -4,9 +4,11 @@ package com.oussemasahbeni.konnect.autoconfigure;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oussemasahbeni.konnect.client.KonnectClient;
 import com.oussemasahbeni.konnect.core.KonnectTemplate;
+import com.oussemasahbeni.konnect.core.KonnectWebhookHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -55,6 +57,13 @@ public class KonnectAutoConfiguration {
         log.info("Initializing KonnectClient implementation.");
         return new KonnectClient(konnectRestClient, objectMapper);
     }
+
+    @Bean
+    @ConditionalOnBean(KonnectTemplate.class)
+    public KonnectWebhookHandler konnectWebhookHandler(KonnectTemplate konnectTemplate) {
+        return new KonnectWebhookHandler(konnectTemplate);
+    }
+
 
     @Bean
     @ConditionalOnMissingBean

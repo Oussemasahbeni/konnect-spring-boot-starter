@@ -10,52 +10,60 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record KonnectPayment(
-        List<Transaction> transactions,
-        int failedTransactions,
-        int successfulTransactions,
-        List<KonnectPaymentMethod> acceptedKonnectPaymentMethods,
-        Long amount,
-        KonnectToken konnectToken,
-        String orderId,
-        KonnectPaymentType type,
-        KonnectPaymentStatus status,
-        Long convertedAmount,
-        BigDecimal exchangeRate,
-        PaymentDetails paymentDetails,
-        String webhook,
-        Instant createdAt,
-        Instant updatedAt,
-        String id
+        @JsonProperty("transactions") List<Transaction> transactions,
+        @JsonProperty("failedTransactions") int failedTransactions,
+        @JsonProperty("successfulTransactions") int successfulTransactions,
+        @JsonProperty("acceptedPaymentMethods") List<KonnectPaymentMethod> acceptedKonnectPaymentMethods,
+        @JsonProperty("amount") BigDecimal amount,
+        @JsonProperty("token") KonnectToken konnectToken,
+        @JsonProperty("orderId") String orderId,
+        @JsonProperty("type") KonnectPaymentType type,
+        @JsonProperty("status") KonnectPaymentStatus status,
+        @JsonProperty("convertedAmount") Long convertedAmount,
+        @JsonProperty("exchangeRate") BigDecimal exchangeRate,
+        @JsonProperty("paymentDetails") PaymentDetails paymentDetails,
+        @JsonProperty("webhook") String webhook,
+        @JsonProperty("createdAt") Instant createdAt,
+        @JsonProperty("updatedAt") Instant updatedAt,
+        @JsonProperty("id") String id
 ) {
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public record Transaction(
-            String type,
-            String method,
-            KonnectTransactionStatus status,
-            String token,
-            Long amount,
+            @JsonProperty("type") String type,
+            @JsonProperty("method") KonnectPaymentMethod method,
+            @JsonProperty("status") KonnectTransactionStatus status,
+            @JsonProperty("token") KonnectToken token,
+            @JsonProperty("amount") Long amount,
             @JsonProperty("ext_payment_ref") String extPaymentRef,
-            String from,
-            Long amountAfterFee,
-            String details,
-            ExtSenderInfo extSenderInfo,
-            BigDecimal feeRate,
-            Long totalFee,
-            String id
+            @JsonProperty("from") String from,
+            @JsonProperty("amountAfterFee") Long amountAfterFee,
+            @JsonProperty("details") String details,
+            @JsonProperty("extSenderInfo") ExtSenderInfo extSenderInfo,
+            @JsonProperty("feeRate") BigDecimal feeRate,
+            @JsonProperty("totalFee") Long totalFee,
+            @JsonProperty("id") String id
     ) {
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public record ExtSenderInfo(
-            String pan,
-            String expiration,
-            String regionType,
-            String email
+            @JsonProperty("pan") String pan,
+            @JsonProperty("expiration") String expiration,
+            @JsonProperty("regionType") String regionType,
+            @JsonProperty("email") String email
     ) {
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public record PaymentDetails(
-            String phoneNumber,
-            String email,
-            String name
+            @JsonProperty("phoneNumber") String phoneNumber,
+            @JsonProperty("email") String email,
+            @JsonProperty("name") String name
     ) {
     }
 }
+
+
+
+
+

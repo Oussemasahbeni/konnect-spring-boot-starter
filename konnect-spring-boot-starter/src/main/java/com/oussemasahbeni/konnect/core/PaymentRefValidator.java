@@ -1,4 +1,4 @@
-package com.oussemasahbeni.konnect.utils;
+package com.oussemasahbeni.konnect.core;
 
 public class PaymentRefValidator {
 
@@ -12,7 +12,7 @@ public class PaymentRefValidator {
      * @param paymentRef the payment reference to validate
      * @return true if the payment reference is valid, false otherwise
      */
-    public static boolean isValid(String paymentRef) {
+    public static boolean validate(String paymentRef) {
         if (paymentRef == null || paymentRef.trim().isBlank()) {
             return false;
         }

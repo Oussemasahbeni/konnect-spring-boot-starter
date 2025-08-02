@@ -8,7 +8,8 @@ import com.oussemasahbeni.konnect.exception.KonnectApiException;
 import com.oussemasahbeni.konnect.model.InitKonnectPaymentRequest;
 import com.oussemasahbeni.konnect.model.InitKonnectPaymentResponse;
 import com.oussemasahbeni.konnect.model.PaymentResponse;
-import com.oussemasahbeni.konnect.utils.PaymentRefValidator;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 
 import java.math.BigDecimal;
 import java.util.function.Consumer;
@@ -19,6 +20,9 @@ import java.util.function.Consumer;
  * providing a simplified API for common operations.
  */
 public class KonnectTemplate {
+
+
+    private static final String RESILIENCE_CONFIG_NAME = "konnect-api";
 
 
     private final KonnectClient konnectClient;
@@ -35,6 +39,8 @@ public class KonnectTemplate {
      * @param amount The payment amount.
      * @return The response from the Konnect API.
      */
+    @RateLimiter(name = RESILIENCE_CONFIG_NAME)
+    @Retry(name = RESILIENCE_CONFIG_NAME)
     public InitKonnectPaymentResponse initiatePayment(BigDecimal amount) {
         return initiatePayment(amount, null);
     }
@@ -48,9 +54,11 @@ public class KonnectTemplate {
      * @return PaymentResponse containing the details of the payment.
      * @throws KonnectApiException if the API call fails or returns an error status.
      */
+    @RateLimiter(name = RESILIENCE_CONFIG_NAME)
+    @Retry(name = RESILIENCE_CONFIG_NAME)
     public PaymentResponse getPaymentDetails(String paymentRef) {
 
-        if (!PaymentRefValidator.isValid(paymentRef)) {
+        if (!PaymentRefValidator.validate(paymentRef)) {
             throw new InvalidPaymentReferenceException("Invalid payment reference format", paymentRef);
         }
         return konnectClient.getPaymentDetails(paymentRef);
@@ -66,6 +74,8 @@ public class KonnectTemplate {
      * Example:
      * template.initiatePayment(new BigDecimal("100"), builder -> builder.theme(KonnectTheme.LIGHT));
      */
+    @RateLimiter(name = RESILIENCE_CONFIG_NAME)
+    @Retry(name = RESILIENCE_CONFIG_NAME)
     public InitKonnectPaymentResponse initiatePayment(BigDecimal amount, Consumer<InitKonnectPaymentRequest.Builder> customizer) {
         InitKonnectPaymentRequest.Builder builder = new InitKonnectPaymentRequest.Builder();
 

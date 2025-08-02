@@ -25,10 +25,10 @@ public record KonnectProperties(
         @DefaultValue("https://api.sandbox.konnect.network/api/v2/")
         String baseUrl,
 
-        @NotBlank(message = "Konnect API base URL must be configured")
+        @NotBlank(message = "Konnect API key cannot be blank")
         String key,
 
-        @NotBlank(message = "Webhook URL must be configured")
+        @NotBlank(message = "Konnect receiver wallet ID cannot be blank")
         String receiverWalletId,
 
         String webhookUrl,
@@ -53,5 +53,5 @@ public record KonnectProperties(
             Boolean addPaymentFeesToAmount
     ) {
     }
-    
+
 }

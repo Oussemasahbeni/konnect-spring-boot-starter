@@ -1,4 +1,6 @@
 package com.oussemasahbeni.konnect.model;
 
-public record PaymentResponse(KonnectPayment payment) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record PaymentResponse(@JsonProperty("payment") KonnectPayment payment) {
 }
