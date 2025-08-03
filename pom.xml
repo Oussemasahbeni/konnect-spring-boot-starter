@@ -42,6 +42,7 @@
         <wiremock-spring-boot.version>3.10.0</wiremock-spring-boot.version>
         <resilience4j-spring-boot3.version>2.3.0</resilience4j-spring-boot3.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <skip.deployment>false</skip.deployment>
     </properties>
 
     <dependencyManagement>
@@ -97,7 +98,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <skip>${project.packaging == 'pom'}</skip>
+                            <skip>${skip.deployment} || ${project.packaging == 'pom'}</skip>
                         </configuration>
                     </plugin>
 
@@ -114,7 +115,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <skipSource>${project.packaging == 'pom'}</skipSource>
+                            <skipSource>${skip.deployment} || ${project.packaging == 'pom'}</skipSource>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -131,6 +132,7 @@
                             </execution>
                         </executions>
                         <configuration>
+                            <skip>${skip.deployment}</skip>
                             <gpgArguments>
                                 <arg>--pinentry-mode</arg>
                                 <arg>loopback</arg>
@@ -145,6 +147,7 @@
                         <version>0.8.0</version>
                         <extensions>true</extensions>
                         <configuration>
+                            <skipPublishing>${skip.deployment}</skipPublishing>
                             <publishingServerId>central</publishingServerId>
                             <autoPublish>true</autoPublish>
                             <waitUntil>validated</waitUntil>
