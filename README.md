@@ -1,7 +1,7 @@
 # Konnect Spring Boot Starter
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/Oussemasahbeni/konnect-spring-boot-starter/build.yml?branch=main)](https://github.com/Oussemasahbeni/konnect-spring-boot-starter/actions)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.oussemasahbeni/konnect-spring-boot-starter.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.oussemasahbeni%22%20AND%20a:%22konnect-spring-boot-starter%22)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.oussemasahbeni/konnect-spring-boot-starter.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.oussemasahbeni/konnect-spring-boot-starter)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A simple and robust Spring Boot starter for integrating with
