@@ -32,7 +32,6 @@
 
     <modules>
         <module>konnect-spring-boot-starter</module>
-        <module>example</module>
     </modules>
 
     <properties>
@@ -81,6 +80,15 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>example</module>
+            </modules>
+        </profile>
         <profile>
             <id>release</id>
             <build>
