@@ -11,11 +11,7 @@
     <packaging>jar</packaging>
     <artifactId>konnect-example</artifactId>
 
-
-    <properties>
-        <skip.deployment>true</skip.deployment>
-    </properties>
-
+    
     <dependencies>
 
         <dependency>

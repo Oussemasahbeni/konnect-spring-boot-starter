@@ -98,7 +98,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <skip>${skip.deployment} || ${project.packaging == 'pom'}</skip>
+                            <skip>${project.packaging == 'pom'}</skip>
                         </configuration>
                     </plugin>
 
@@ -115,7 +115,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <skipSource>${skip.deployment} || ${project.packaging == 'pom'}</skipSource>
+                            <skipSource>${project.packaging == 'pom'}</skipSource>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -132,7 +132,6 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <skip>${skip.deployment}</skip>
                             <gpgArguments>
                                 <arg>--pinentry-mode</arg>
                                 <arg>loopback</arg>
@@ -147,7 +146,6 @@
                         <version>0.8.0</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <skipPublishing>${skip.deployment}</skipPublishing>
                             <publishingServerId>central</publishingServerId>
                             <autoPublish>true</autoPublish>
                             <waitUntil>validated</waitUntil>
