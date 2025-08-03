@@ -13,6 +13,25 @@
     <name>Konnect Spring Boot Starter</name>
     <description>A Spring Boot Starter for easy integration with the Konnect payment service API</description>
 
+    <url>https://github.com/Oussemasahbeni/konnect-spring-boot-starter</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Oussema sahbeni</name>
+            <email>oussemasahbeni300@gmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <url>https://github.com/Oussemasahbeni/konnect-spring-boot-starter</url>
+        <connection>scm:git:git://github.com/Oussemasahbeni/konnect-spring-boot-starter.git</connection>
+        <developerConnection>https://github.com/Oussemasahbeni</developerConnection>
+    </scm>
+
     <dependencies>
 
         <dependency>
