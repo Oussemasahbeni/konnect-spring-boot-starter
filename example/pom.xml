@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.oussemasahbeni</groupId>
+        <groupId>io.github.oussemasahbeni</groupId>
         <artifactId>konnect-parent</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -24,7 +24,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.oussemasahbeni</groupId>
+            <groupId>io.github.oussemasahbeni</groupId>
             <artifactId>konnect-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -43,6 +43,12 @@
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-spring-boot3</artifactId>
+            <version>${resilience4j-spring-boot3.version}</version>
         </dependency>
 
         <dependency>
