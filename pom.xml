@@ -147,7 +147,7 @@
                         <configuration>
                             <publishingServerId>central</publishingServerId>
                             <autoPublish>true</autoPublish>
-                            <waitUntil>uploaded</waitUntil>
+                            <waitUntil>validated</waitUntil>
                         </configuration>
                     </plugin>
 
