@@ -129,6 +129,14 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--batch</arg>
+                                <arg>--yes</arg>
+                            </gpgArguments>
+                            <passphrase>${env.MAVEN_GPG_PASSPHRASE}</passphrase>
+                            <useAgent>false</useAgent>
+                        </configuration>
                     </plugin>
 
                     <plugin>
