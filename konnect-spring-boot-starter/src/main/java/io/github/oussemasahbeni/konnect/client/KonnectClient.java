@@ -1,26 +1,48 @@
 package io.github.oussemasahbeni.konnect.client;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.oussemasahbeni.konnect.exception.KonnectApiException;
-import io.github.oussemasahbeni.konnect.exception.KonnectErrorResponse;
-import io.github.oussemasahbeni.konnect.model.InitKonnectPaymentRequest;
-import io.github.oussemasahbeni.konnect.model.InitKonnectPaymentResponse;
-import io.github.oussemasahbeni.konnect.model.PaymentResponse;
+import java.io.IOException;
+
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestClient;
 
-import java.io.IOException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.oussemasahbeni.konnect.exception.KonnectApiException;
+import io.github.oussemasahbeni.konnect.exception.KonnectErrorResponse;
+import io.github.oussemasahbeni.konnect.model.InitKonnectPaymentRequest;
+import io.github.oussemasahbeni.konnect.model.InitKonnectPaymentResponse;
+import io.github.oussemasahbeni.konnect.model.PaymentResponse;
 
+/**
+ * Low-level HTTP client for communicating with the Konnect Payment Gateway API.
+ * This class handles the direct HTTP communication, authentication, and error handling
+ * for all Konnect API endpoints. It provides the foundational layer for higher-level
+ * services like {@link io.github.oussemasahbeni.konnect.core.KonnectTemplate}.
+ * 
+ * <p>This client automatically handles:
+ * <ul>
+ *   <li>Authentication via API key headers</li>
+ *   <li>JSON serialization/deserialization</li>
+ *   <li>HTTP error status code handling</li>
+ *   <li>Konnect-specific error response parsing</li>
+ * </ul>
+ * 
+ * @see io.github.oussemasahbeni.konnect.core.KonnectTemplate
+ */
 public class KonnectClient {
-
 
     private final RestClient restClient;
 
-
+    /**
+     * Constructs a new KonnectClient with the provided RestClient and ObjectMapper.
+     * The RestClient should be pre-configured with the Konnect API base URL and authentication headers.
+     * 
+     * @param konnectRestClient A pre-configured RestClient with base URL and authentication
+     * @param objectMapper The ObjectMapper for JSON processing and error handling
+     */
     public KonnectClient(RestClient konnectRestClient, ObjectMapper objectMapper) {
         this.restClient = konnectRestClient.mutate()
                 .defaultStatusHandler(HttpStatusCode::isError, (request, response) -> handleApiError(objectMapper, response))

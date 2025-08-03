@@ -1,6 +1,9 @@
 package io.github.oussemasahbeni.konnect.core;
 
 
+import java.math.BigDecimal;
+import java.util.function.Consumer;
+
 import io.github.oussemasahbeni.konnect.autoconfigure.KonnectProperties;
 import io.github.oussemasahbeni.konnect.client.KonnectClient;
 import io.github.oussemasahbeni.konnect.exception.InvalidPaymentReferenceException;
@@ -10,9 +13,6 @@ import io.github.oussemasahbeni.konnect.model.InitKonnectPaymentResponse;
 import io.github.oussemasahbeni.konnect.model.PaymentResponse;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
-
-import java.math.BigDecimal;
-import java.util.function.Consumer;
 
 /**
  * A high-level template for interacting with the Konnect API.
@@ -28,6 +28,13 @@ public class KonnectTemplate {
     private final KonnectClient konnectClient;
     private final KonnectProperties konnectProperties;
 
+    /**
+     * Constructs a new KonnectTemplate with the specified client and properties.
+     * This constructor is typically called by Spring's auto-configuration.
+     * 
+     * @param konnectClient The HTTP client for making API calls to Konnect
+     * @param konnectProperties The configuration properties containing defaults and API settings
+     */
     public KonnectTemplate(KonnectClient konnectClient, KonnectProperties konnectProperties) {
         this.konnectClient = konnectClient;
         this.konnectProperties = konnectProperties;

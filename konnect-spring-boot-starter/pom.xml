@@ -10,6 +10,9 @@
     <artifactId>konnect-spring-boot-starter</artifactId>
     <packaging>jar</packaging>
 
+    <name>Konnect Spring Boot Starter</name>
+    <description>A Spring Boot Starter for easy integration with the Konnect payment service API</description>
+
     <dependencies>
 
         <dependency>

@@ -1,7 +1,21 @@
 package io.github.oussemasahbeni.konnect.core;
 
+/**
+ * Utility class for validating Konnect payment reference formats.
+ * This class provides static methods to validate that payment references
+ * conform to the expected format before making API calls.
+ * 
+ * <p>Konnect payment references are MongoDB ObjectIDs, which are 24-character
+ * hexadecimal strings. This validator ensures that references match this format
+ * to prevent unnecessary API calls with invalid references.
+ * 
+ * @see io.github.oussemasahbeni.konnect.core.KonnectTemplate#getPaymentDetails(String)
+ */
 public class PaymentRefValidator {
 
+    /**
+     * Private constructor to prevent instantiation of this utility class.
+     */
     private PaymentRefValidator() {
     }
 
